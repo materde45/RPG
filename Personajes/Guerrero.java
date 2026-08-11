@@ -1,6 +1,8 @@
 package Personajes;
 
 public class Guerrero extends BaseDePersonaje{
+
+
     public Guerrero(){
         super("Guerrero",100,100,200,0,70,0,200);
 

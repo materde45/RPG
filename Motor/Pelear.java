@@ -1,8 +1,6 @@
 package Motor;
 
 import Personajes.BaseDePersonaje;
-import Personajes.Guerrero;
-import Personajes.Mago;
 
 import java.util.Random;
 

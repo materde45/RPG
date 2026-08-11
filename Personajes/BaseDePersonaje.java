@@ -183,4 +183,16 @@ public class BaseDePersonaje {
     public List<Ataque> getListaAtaques() {
         return listaAtaques;
     }
+
+    public double getMana() {
+        return mana;
+    }
+
+    public double getEnergia() {
+        return energia;
+    }
+
+    public List<Pocion> getInventario() {
+        return inventario;
+    }
 }
