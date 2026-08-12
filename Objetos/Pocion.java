@@ -9,10 +9,10 @@ public class Pocion {
     private double regMana;
     private double regEnergia;
     private double debilidad;
-    private double veneno;
-    private double antidoto;
+    private boolean veneno;
+    private boolean antidoto;
 
-    public Pocion(int id, String nombre, double cura, double regEnergia, double regMana, double veneno, double antidoto, double debilidad){
+    public Pocion(int id, String nombre, double cura, double regEnergia, double regMana, boolean veneno, boolean antidoto, double debilidad){
 
         this.id = id;
         this.nombre = nombre;
@@ -37,7 +37,7 @@ public class Pocion {
         if (this.regEnergia > 0) {
             consumidor.recuperarEnergia(this.regEnergia);
         }
-        if (this.veneno > 0) {
+        if (this.veneno) {
             System.out.println("¡La poción estaba envenenada!");
         }
     }
@@ -66,11 +66,10 @@ public class Pocion {
         return debilidad;
     }
 
-    public double getVeneno() {
-        return veneno;
-    }
+    public boolean getVeneno() {
+        return veneno; }
 
-    public double getAntidoto() {
-        return antidoto;
-    }
+    public boolean getAntidoto() {
+        return antidoto; }
 }
+

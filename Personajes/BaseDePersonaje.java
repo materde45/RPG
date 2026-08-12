@@ -1,10 +1,11 @@
 package Personajes;
 
+import Objetos.Arma;
 import Objetos.Pocion;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseDePersonaje {
+public abstract class BaseDePersonaje {
 
     private String nombre;
     private double vida = 0;
@@ -19,6 +20,8 @@ public class BaseDePersonaje {
     private double energiaMax;
     private List<Ataque> listaAtaques;
     private List<Pocion> inventario;
+    private Arma armaEquipada;
+    private int puntosDeExperiencia;
 
 
     public BaseDePersonaje(String nombre, double vida, double defMagic, double defFisica, double damageMagic, double damageFisic,double mana, double energia) {
@@ -75,20 +78,31 @@ public class BaseDePersonaje {
 
         Ataque ataqueElegido = this.listaAtaques.get(indiceAtaque);
         System.out.println("\n ¡" + this.nombre + " usa " + ataqueElegido.getNombre() + "!");
+
         if(this.mana >= ataqueElegido.getGastoMana() && this.energia >= ataqueElegido.getGastoEnergia()) {
 
             this.mana -= ataqueElegido.getGastoMana();
             this.energia -= ataqueElegido.getGastoEnergia();
 
-
             if (ataqueElegido.getTipo().equals("Magico")) {
 
                 double danoTotal = this.damageMagic + ataqueElegido.getPoder();
+
+                // Si tiene un arma equipada, sumamos su bono mágico
+                if (this.armaEquipada != null) {
+                    danoTotal += this.armaEquipada.getBonoDanoMagico();
+                }
+
                 objetivo.recibirDamageMagic(danoTotal);
 
             } else if (ataqueElegido.getTipo().equals("Fisico")) {
 
                 double danoTotal = this.damageFisic + ataqueElegido.getPoder();
+
+                if (this.armaEquipada != null) {
+                    danoTotal += this.armaEquipada.getBonoDanoFisico();
+                }
+
                 objetivo.recibirDamgeFisico(danoTotal);
             }
         } else if (this.mana < ataqueElegido.getGastoMana()) {
@@ -100,6 +114,12 @@ public class BaseDePersonaje {
             System.out.println(this.nombre + " fallo su ataque, se ha quedado sin energia");
 
         }
+    }
+
+    public void equiparArma(Arma nuevaArma) {
+        this.armaEquipada = nuevaArma;
+        System.out.println("\n🗡️ ¡" + this.nombre + " se ha equipado " + nuevaArma.getNombre() + "!");
+        System.out.println("   " + nuevaArma.getDescripcion());
     }
 
     public void recogerPocion(Pocion nuevaPocion) {
